@@ -1,0 +1,8 @@
+.container {
+    background-color: var(--rs-bg-card);
+    border: 1px solid var(--rs-border-secondary);
+    border-radius: 8px;
+    padding: 16px;
+    position: relative;
+    transform: translateY(-64px);
+}

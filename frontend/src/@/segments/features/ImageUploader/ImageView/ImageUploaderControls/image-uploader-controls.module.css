@@ -1,0 +1,15 @@
+.controls {
+    width: 36px;
+    height: 36px;
+}
+
+.controls:global(.rs-uploader-picture) :global(.rs-uploader-trigger-btn) {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--rs-border-secondary);
+    margin: 0;
+}
+
+.controls svg {
+    font-size: 16px;
+}

@@ -1,0 +1,45 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint --fix --cache --cache-location ./node_modules/.cache/eslint ./src",
+    "test:ufo": "node ./tests/ufo-tests.cjs",
+    "test": "yarn lint && tsc"
+  },
+  "dependencies": {
+    "@rsuite/icons": "1.0.3",
+    "classnames": "^2.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rsuite": "5.49.0",
+    "usehooks-ts": "^3.1.0",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.2.4",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.16.0",
+    "@markushevpro/eslint-config": "2.1.1",
+    "@types/node": "20",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.0.1",
+    "eslint": "^9.16.0",
+    "eslint-plugin-align-assignments": "^1.1.2",
+    "eslint-plugin-align-import": "^1.0.0",
+    "eslint-plugin-brace-rules": "^0.1.6",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-no-relative-import-paths": "^1.5.5",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "globals": "^15.13.0",
+    "typescript": "^4.6.4",
+    "typescript-eslint": "^8.18.0",
+    "vite": "^3.0.7"
+  }
+}

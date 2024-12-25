@@ -1,0 +1,14 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    height: 100%;
+}
+
+.header {
+    text-align: center;
+    padding: 16px;
+    border-bottom: 1px solid var(--rs-border-secondary);
+    --wails-draggable: drag;
+}

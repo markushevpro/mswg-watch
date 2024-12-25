@@ -1,0 +1,6 @@
+.screen {
+    border: 1px solid var(--rs-border-secondary);
+    border-radius: 8px;
+    background-color: var(--rs-body);
+    position: absolute;
+}
