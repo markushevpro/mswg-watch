@@ -1,7 +1,5 @@
-import { Center } from '/src/@/shared/ui-kit/Center'
-
-import { GenerationCanvas }   from './GenerationCanvas'
-import { GenerationControls } from './GenerationControls'
+import { Center }           from '/src/@/shared/ui-kit/Center'
+import { GenerationCanvas } from '/src/@/segments/units/GenerationCanvas'
 
 export
 function Generation
@@ -10,7 +8,6 @@ function Generation
     return (
         <Center>
             <GenerationCanvas />
-            <GenerationControls />
         </Center>
     )
 }

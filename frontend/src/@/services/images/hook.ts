@@ -1,6 +1,5 @@
 'use client'
 
-
 import { useCallback, useEffect } from 'react'
 
 import { useHookResult } from '/src/@/shared/hooks/useHookResult'

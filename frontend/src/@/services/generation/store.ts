@@ -7,9 +7,8 @@ import type { MutableRefObject } from 'react'
 interface IGenerationStoreData
 {
     ref: MutableRefObject<HTMLCanvasElement | null>
-    active: boolean
-    loading: boolean
-    done: boolean
+    working: boolean
+    ready: boolean
 }
 
 interface IGenerationStoreActions
@@ -22,9 +21,8 @@ type IGenerationStore = IGenerationStoreData & IGenerationStoreActions
 
 export
 const useGenerationStore = create<IGenerationStore>(( set ) => ({
-    active:  false,
-    loading: false,
-    done:    false,
+    working: false,
+    ready:   false,
     ref:     createRef<HTMLCanvasElement>(),
 
     update: ( payload: Partial<IGenerationStoreData> ) => {

@@ -1,3 +1,4 @@
+import { Reload }      from '@rsuite/icons'
 import { useCallback } from 'react'
 
 import { Button }  from '/src/@/shared/ui-kit/Button'
@@ -19,10 +20,10 @@ function ReloadButton
 
     return (
         <Button
-            className={styles.close}
+            className={styles.reload}
             onClick={reloadApp}
         >
-            ×
+            <Reload />
         </Button>
     )
 }

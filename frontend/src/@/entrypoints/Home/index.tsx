@@ -1,5 +1,7 @@
-import { CreateWallpaperFlow } from '/src/@/flows/CreateWallpaper'
-import { AppLayout }           from '/src/@/segments/composition/AppLayout'
+import { UpdateImagesFlow } from '/src/@/flows/UpdateImages'
+import { LoadScreensFlow }  from '/src/@/flows/LoadScreens'
+import { WatcherFlow }      from '/src/@/flows/Watcher'
+import { AppLayout }        from '/src/@/segments/composition/AppLayout'
 
 export
 function HomePage
@@ -7,7 +9,10 @@ function HomePage
 {
     return (
         <AppLayout>
-            <CreateWallpaperFlow />
+            <LoadScreensFlow>
+                <UpdateImagesFlow />
+                <WatcherFlow />
+            </LoadScreensFlow>
         </AppLayout>
     )
 }

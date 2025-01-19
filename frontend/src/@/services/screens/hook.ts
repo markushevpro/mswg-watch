@@ -1,77 +1,70 @@
 'use client'
 
-import { useCallback, useEffect } from 'react'
-
-import { GetKnownScreens, UpdateScreens } from '/wailsjs/go/main/App'
+import { CSSProperties, useEffect, useMemo } from 'react'
+import { useWindowSize }                     from 'usehooks-ts'
 
 import type { IScreensStore } from './store'
 
-import { convertScreen, getSystemScreens } from './helpers'
-import { useScreensStore }                 from './store'
+import {  fixScreens, getSID, getZoom } from './helpers'
+import { useScreensStore }              from './store'
 
 
 interface HScreens
-    extends
-    IScreensStore
+extends
+Pick<IScreensStore, 'screens' | 'fixed' | 'layout' | 'update'>
 {
-    available: boolean
-    refresh: () => Promise<void>
-    retry: () => Promise<void>
+    sid: string
+    zoom: number
+    style: CSSProperties
 }
 
 export
 function useScreens
 (): HScreens
 {
-    const { known, screens, update, ...rest } = useScreensStore()
+    const size = useWindowSize()
 
-    const getScreens = useCallback(
-        async (): Promise<void> => {
-            update({
-                loading: true,
-                error:   false
-            })
+    const { screens, fixed, layout, update } = useScreensStore()
 
-            const res = await getSystemScreens()
-
-            update( res )
-        },
-        [ update ]
+    const sid = useMemo(
+        () => getSID( fixed ),
+        [ fixed ]
     )
 
-    const refresh = useCallback(
-        async () => {
-            if ( screens && known ) {
-                const current = screens.map( convertScreen )
-                UpdateScreens( current )
-            }
-        },
-        [ screens, known ]
+    const zoom = useMemo(
+        () => layout ? getZoom( layout, size ) : 1,
+        [ layout, size ]
     )
 
-    const onStartup = useCallback(
-        async () => {
-            const known = await GetKnownScreens()
-            update({ known })
-        },
-        [ update ]
+    const style: CSSProperties = useMemo(
+        () => (
+            layout
+                ? {
+                    width:  layout.width / zoom,
+                    height: layout.height / zoom
+                }
+                : {}
+        ),
+        [ layout, zoom ]
     )
+
 
     useEffect(
         () => {
-            void onStartup()
+            if ( screens ) {
+                update( fixScreens( screens ))
+            }
         },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        []
+        [ screens, update ]
     )
 
     return {
-        ...rest,
+        sid,
+        layout,
+        fixed,
         screens,
-        known,
-        update,
-        refresh,
-        available: typeof window !== 'undefined' && !!window.getScreenDetails,
-        retry:     getScreens
+        zoom,
+        style,
+        update
     }
 }

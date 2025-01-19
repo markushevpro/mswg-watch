@@ -9,13 +9,13 @@ export
 function GenerateWallpaperFlow
 ()
 {
-    const { ready, active, run } = useGenerateWallpaperFlow()
+    const { loaded, ready, run } = useGenerateWallpaperFlow()
 
-    if ( !ready ) {
+    if ( !loaded ) {
         return null
     }
 
-    if ( !active ) {
+    if ( !ready ) {
         return (
             <BottomButton onClick={run}>
                 Generate

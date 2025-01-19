@@ -1,12 +1,18 @@
-.close:global(.rs-btn) {
+.reload:global(.rs-btn) {
     position: fixed;
     right: 50px;
     top: 13px;
     width: 24px;
     height: 24px;
-    font-size: 20px;
+    font-size: 13px;
     line-height: 1;
     padding: 0 4px 4px;
     border-radius: 2px;
     z-index: 999;
+}
+
+.reload svg {
+    stroke-width: .5px;
+    stroke: currentColor;
+    transform: translateY(1px);
 }

@@ -4,6 +4,7 @@ declare global {
     }
 }
 
+export
 interface GetScreenDetails
 {
     screens: Screen[]
@@ -18,6 +19,7 @@ interface SystemScreensState
     error: boolean
     denied: boolean
     screens: Screen[] | undefined
+    details: GetScreenDetails | undefined
 }
 
 export
@@ -58,5 +60,4 @@ interface ScreensLayout
     top: number
     width: number
     height: number
-    zoom: number
 }

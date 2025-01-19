@@ -1,8 +1,7 @@
-
-import { types } from '/wailsjs/go/models'
-
 import type { ScreensLayout, Screen, SystemScreensState } from '/src/@/services/screens'
 import type { WindowSize }                                from '/src/@/services/system'
+
+import { IScreensStoreBase } from './store'
 
 
 function fixScreenOffset
@@ -43,10 +42,17 @@ function fixedLeft
     return screen.left === min ? screen.left : screen.left + ratioFix( screen.left, screen.devicePixelRatio )
 }
 
+export
+function getZoom
+( layout: ScreensLayout, size: WindowSize )
+{
+    return Math.max( Math.ceil( 1 / ( size.width / layout.width )), Math.ceil( 1 / ( size.height / layout.height )))
+}
+
 // TODO: Refactor for readability
 export
 function calculateScreensLayout
-( screens: Screen[], size: WindowSize ): ScreensLayout
+( screens: Screen[]): ScreensLayout
 {
     const _left = screens.reduce(( left, screen ) => Math.min( left, screen.left ), Infinity )
     const _top  = screens.reduce(( top, screen ) => Math.min( top, screen.top ), Infinity )
@@ -64,14 +70,11 @@ function calculateScreensLayout
         .map( screen => fixedTop( screen, top ) * screen.devicePixelRatio - top + screen.height * screen.devicePixelRatio )
         .reduce(( max, offset ) => Math.max( offset, max ), top )
 
-    const zoom = Math.max( Math.ceil( 1 / ( size.width / width )), Math.ceil( 1 / ( size.height / height )))
-
     return {
         left,
         top,
         width,
-        height,
-        zoom
+        height
     }
 }
 
@@ -79,29 +82,34 @@ export
 async function getSystemScreens
 (): Promise<SystemScreensState>
 {
-    console.log( 'Fetching screens...' )
+    // console.log( 'Fetching screens...' )
+
+    const defaultResult = {
+        loading: false,
+        error:   false,
+        denied:  false,
+        screens: undefined,
+        details: undefined
+    }
 
     try {
         const data = await window.getScreenDetails?.()
         const res  = data?.screens
 
         if ( res ) {
-            console.log( 'Screens ok', res )
+            // console.log( 'Screens ok', res )
 
             return {
-                loading: false,
-                error:   false,
-                denied:  false,
-                screens: res
+                ...defaultResult,
+                screens: res,
+                details: data
             }
         } else {
             console.log( 'Screens not fetched' )
 
             return {
-                loading: false,
-                error:   true,
-                denied:  false,
-                screens: undefined
+                ...defaultResult,
+                error: true
             }
         }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -112,22 +120,38 @@ async function getSystemScreens
             console.log( 'Permission denied' )
 
             return {
-                loading: false,
-                error:   true,
-                denied:  true,
-                screens: undefined
+                ...defaultResult,
+                error:  true,
+                denied: true
             }
         } else {
             console.log( 'Unkown error' )
 
             return {
-                loading: false,
-                error:   true,
-                denied:  false,
-                screens: undefined
+                ...defaultResult,
+                error: true
             }
         }
     }
+}
+
+export
+function fixScreens
+( screens: Screen[]): IScreensStoreBase
+{
+    const layout = calculateScreensLayout([].slice.call( screens ))
+
+    return {
+        layout,
+        fixed: screens.map( fixScreenOffsetMap( layout.left, layout.top )).map( appendID )
+    }
+}
+
+export
+function getSID
+( screens?: Screen[]): string
+{
+    return ( screens ?? []).reduce(( all, screen ) => `${all}+${getID( screen )}`, '' )
 }
 
 export
@@ -145,16 +169,4 @@ function appendID
         ...screen,
         id: getID( screen )
     }
-}
-
-export
-function convertScreen
-( screen: Screen ): types.Screen
-{
-    const res = new types.Screen( screen )
-
-    return {
-        ...res,
-        id: getID( screen )
-    } as types.Screen
 }

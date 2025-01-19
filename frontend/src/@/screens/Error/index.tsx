@@ -1,5 +1,7 @@
 import { Button } from 'rsuite'
 
+import { Center } from '/src/@/shared/ui-kit/Center'
+
 interface PErrorScreen
 {
     title: string
@@ -13,7 +15,7 @@ function ErrorScreen
 ({ title, text, button, action }: PErrorScreen )
 {
     return (
-        <>
+        <Center>
             <h1>{ title }</h1>
 
             {
@@ -33,6 +35,6 @@ function ErrorScreen
                     </>
                 )
             }
-        </>
+        </Center>
     )
 }

@@ -7,8 +7,8 @@ export
 function GenerationCanvas
 ()
 {
-    const { layout }      = useScreens()
-    const { ref, redraw } = useGeneration()
+    const { layout } = useScreens()
+    const { ref }    = useGeneration()
 
     if ( !layout ) {
         return null
@@ -20,7 +20,6 @@ function GenerationCanvas
             className={styles.canvas}
             height={layout.height}
             width={layout.width}
-            onClick={redraw}
         />
     )
 }

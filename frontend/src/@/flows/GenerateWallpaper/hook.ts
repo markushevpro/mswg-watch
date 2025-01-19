@@ -6,8 +6,8 @@ import { useHookResult } from '/src/@/shared/hooks/useHookResult'
 
 interface HGenerateWallpaperFlow
 {
+    loaded: boolean
     ready: boolean
-    active: boolean
     run: () => void
 }
 
@@ -15,21 +15,21 @@ export
 function useGenerateWallpaperFlow
 (): HGenerateWallpaperFlow
 {
-    const { active, update } = useGeneration()
-    const { layout, fixed }  = useScreens()
+    const { ready, update } = useGeneration()
+    const { layout, fixed } = useScreens()
 
-    const ready = useMemo(() => !!( layout && fixed ), [ fixed, layout ])
+    const loaded = useMemo(() => !!( layout && fixed ), [ fixed, layout ])
 
     const run = useCallback(
         () => {
-            update({ active: true })
+            update({ ready: true })
         },
         [ update ]
     )
 
     return useHookResult({
+        loaded,
         ready,
-        active,
         run
     })
 }

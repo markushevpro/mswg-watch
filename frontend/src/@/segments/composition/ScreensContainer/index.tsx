@@ -1,5 +1,6 @@
 
 import { useScreens } from '/src/@/services/screens'
+import { Center }     from '/src/@/shared/ui-kit/Center'
 import { Container }  from '/src/@/shared/ui-kit/Container'
 
 import type { PropsWithChildren } from 'react'
@@ -11,8 +12,10 @@ function ScreensContainer
     const { style } = useScreens()
 
     return (
-        <Container style={style}>
-            { children }
-        </Container>
+        <Center>
+            <Container style={style}>
+                { children }
+            </Container>
+        </Center>
     )
 }

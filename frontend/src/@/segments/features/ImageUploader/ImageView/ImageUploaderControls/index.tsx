@@ -23,7 +23,7 @@ function ImageUploaderControls
     return (
         <FloatingButtons>
             <FileUploader className={styles.controls} loading={uploading} onUpload={upload}>
-                <Reload />
+                <Reload width={16} />
             </FileUploader>
 
             <IconButton icon={<Close />} onClick={remove} />

@@ -1,19 +1,22 @@
-import { LoadScreensFlow }  from '/src/@/flows/LoadScreens'
 import { ScreensScreen }    from '/src/@/screens/Screens'
 import { ScreensContainer } from '/src/@/segments/composition/ScreensContainer'
+import { useGeneration }    from '/src/@/services/generation'
+import { BottomButton }     from '/src/@/shared/ui-kit/BottomButton'
 
-import type { PropsWithChildren } from 'react'
 
 export
 function UpdateImagesFlow
-({ children }: PropsWithChildren )
+()
 {
+    const { generate } = useGeneration()
+
     return (
-        <LoadScreensFlow>
-            <ScreensContainer>
-                <ScreensScreen />
-                { children }
-            </ScreensContainer>
-        </LoadScreensFlow>
+        <ScreensContainer>
+            <ScreensScreen />
+
+            <BottomButton onClick={generate}>
+                Save & update
+            </BottomButton>
+        </ScreensContainer>
     )
 }

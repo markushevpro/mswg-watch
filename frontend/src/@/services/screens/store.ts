@@ -1,20 +1,33 @@
-import { types } from '/wailsjs/go/models'
-
 import { create } from 'zustand'
 
 import type { Screen, ScreensLayout, SystemScreensState } from '/src/@/services/screens'
 import type { CSSProperties }                             from 'react'
 
+export
+interface IScreensStoreBase
+{
+    fixed: Screen[] | undefined
+    layout: ScreensLayout | undefined
+}
+
+export
+interface IScreensStoreFront
+{
+    style: CSSProperties | undefined
+}
+
+export
+interface IScreensStoreCalculated
+extends
+IScreensStoreBase,
+IScreensStoreFront
+{}
 
 interface IScreensStoreData
     extends
-    SystemScreensState
-{
-    known: types.Screen[] | undefined
-    fixed: Screen[] | undefined
-    layout: ScreensLayout | undefined
-    style: CSSProperties | undefined
-}
+    SystemScreensState,
+    IScreensStoreCalculated
+{}
 
 interface IScreensStoreActions
 {
@@ -33,7 +46,7 @@ const useScreensStore = create<IScreensStore>(( set ) => ({
     fixed:   undefined,
     layout:  undefined,
     style:   undefined,
-    known:   undefined,
+    details: undefined,
 
     update: ( payload: Partial<IScreensStoreData> ) => {
         set({ ...payload })

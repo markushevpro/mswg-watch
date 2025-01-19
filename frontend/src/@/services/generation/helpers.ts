@@ -1,5 +1,11 @@
-import type { Screen, ScreensLayout }       from '/src/@/services/screens'
+
+import { getID, type Screen, type ScreensLayout } from '/src/@/services/screens'
+
 import type { GenImageSize, GenScreenSize } from './types'
+
+import { TImages }                     from '/src/@/services/images'
+import { digest }                      from '/src/@/shared/utils/hash'
+import { SaveWallpaper, SetWallpaper } from '/wailsjs/go/main/App'
 
 function getImageSize
 ( img: HTMLImageElement ): GenImageSize
@@ -81,4 +87,64 @@ function clearScreen
 {
     ctx.rect( 0, 0, layout.width, layout.height )
     ctx.fill()
+}
+
+export
+async function generateWallpaper
+( canvas: HTMLCanvasElement, images: TImages, layout: ScreensLayout, screens: Screen[]): Promise<string | null>
+{
+    canvas.width  = layout.width
+    canvas.height = layout.height
+
+    const ctx = canvas.getContext( '2d' )
+
+    if ( ctx ) {
+        clearScreen( ctx, layout )
+
+        for ( let i = 0; i < ( screens.length ?? 0 ); i++ ) {
+            const screen = screens[ i ]
+            const id     = getID( screen )
+
+            if ( screen && images[ id ]) {
+                await drawImage( ctx, screen, images[ id ] as string )
+            }
+        }
+
+        return canvas.toDataURL()
+    }
+
+    return null
+}
+
+export
+async function updateWallpaper
+( name: string, image: string ): Promise<void>
+{
+    const filename = await digest( name ) + '.png'
+
+    if ( image && filename ) {
+        await SaveWallpaper( filename, image )
+        await SetWallpaper( filename )
+    }
+}
+
+export
+async function generateAndUpdate
+( filename: string, canvas: HTMLCanvasElement | null, images: TImages, layout?: ScreensLayout, screens?: Screen[]): Promise<void>
+{
+    if ( layout && screens && canvas ) {
+        const image = await generateWallpaper( canvas, images, layout, screens )
+
+        if ( image ) {
+            updateWallpaper( filename, image )
+        } else {
+            console.log( 'No image' )
+        }
+    } else {
+        console.log( 'Failed to generate due to something missed:', {
+            layout,
+            screens,
+            canvas
+        })
+    }
 }

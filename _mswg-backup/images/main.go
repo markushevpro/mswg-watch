@@ -8,22 +8,18 @@ import (
 	"net/http"
 	"io"
 	"io/ioutil"
+	"mswg/types"
 )
-
-type ImageInfo struct {
-	Filename string `json:"filename"`
-	Data string `json:"data"`
-}
 
 var imagesDir = "./cache"
 var wallpaperPath = "./render"
 
 // PUBLIC
 
-func GetImages() []ImageInfo {
+func GetImages() []types.ImageInfo {
 	checkDir()
 
-	var res = []ImageInfo{}
+	var res = []types.ImageInfo{}
 	
 	files, err := os.ReadDir( imagesDir )
 
@@ -32,7 +28,7 @@ func GetImages() []ImageInfo {
     }
  
     for _, file := range files {
-		res = append( res, ImageInfo{
+		res = append( res, types.ImageInfo{
 			Filename: file.Name(),
 			Data: readImage( file.Name()),
 		})
@@ -54,7 +50,7 @@ func UpdateImage( id string, data string ) {
 }
 
 func Generate( filename string, data string ) string {
-	var target = WallpaperFile( filename )
+	var target = wallpaperPath + "/" + filename
 
 	log.Print( target )
 
@@ -64,10 +60,6 @@ func Generate( filename string, data string ) string {
 	}
 
 	return ""
-}
-
-func WallpaperFile( filename string ) string {
-	return wallpaperPath + "/" + filename
 }
 
 // PRIVATE
@@ -97,12 +89,6 @@ func removeFile( filename string ) {
 
 func toBase64(b []byte) string {
 	return base64.StdEncoding.EncodeToString(b)
-}
-
-func IsExist( filename string ) bool {
-	_, err := os.Stat(  WallpaperFile( filename )); 
-	
-	return err == nil		
 }
 
 func readImage( filename string ) string {
