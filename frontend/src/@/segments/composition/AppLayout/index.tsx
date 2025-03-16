@@ -1,8 +1,10 @@
-import { useCallback, type PropsWithChildren } from 'react'
-import { Header, Content, Container }          from 'rsuite'
+import { useCallback }                from 'react'
+import { Header, Content, Container } from 'rsuite'
 
 import { CloseButton }  from '/src/@/segments/features/CloseButton'
 import { ReloadButton } from '/src/@/segments/features/RestartButton'
+
+import type { PropsWithChildren } from 'react'
 
 import styles from './app-layout.module.css'
 
@@ -12,7 +14,7 @@ function AppLayout
 {
     const maximize = useCallback(
         () => {
-            //@ts-expect-error undefined
+            // @ts-expect-error undefined
             runtime.WindowToggleMaximise()
         },
         []

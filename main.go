@@ -23,6 +23,7 @@ func main() {
         Frameless:          true,
 		// StartHidden: true,
 		HideWindowOnClose: true,
+		LogLevel: 4,
 		Debug: options.Debug{
 			OpenInspectorOnStartup: true,
 		},

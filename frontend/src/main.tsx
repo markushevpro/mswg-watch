@@ -5,7 +5,8 @@ import App from './App'
 
 const container = document.getElementById( 'root' )
 
-const root = createRoot( container! )
+// @ts-expect-error null
+const root = createRoot( container )
 
 root.render(
     <React.StrictMode>

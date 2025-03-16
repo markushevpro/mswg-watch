@@ -1,7 +1,8 @@
 import { HomePage }   from './@/entrypoints/Home'
 import { RootLayout } from './@/shared/layouts/RootLayout'
 
-function App ()
+function App
+()
 {
     return (
         <RootLayout>
@@ -10,4 +11,5 @@ function App ()
     )
 }
 
-export default App
+export default
+App

@@ -6,15 +6,15 @@ import { useImages }     from '/src/@/services/images'
 import { useScreens }    from '/src/@/services/screens'
 import { useHookResult } from '/src/@/shared/hooks/useHookResult'
 
-import type { IGenerationStore } from './store'
-import type { RefObject }        from 'react'
+import type { GenerationStore } from './store'
+import type { RefObject }       from 'react'
 
 import { generateAndUpdate }  from './helpers'
 import { useGenerationStore } from './store'
 
 interface HGeneration
     extends
-    IGenerationStore
+    GenerationStore
 {
     ref: RefObject<HTMLCanvasElement>
     generate: () => void
@@ -28,7 +28,6 @@ function useGeneration
     const { sid, layout, fixed } = useScreens()
 
     const { ref, working, update, ready } = useGenerationStore()
-
 
     const generate = useCallback(
         async (): Promise<void> => {

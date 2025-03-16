@@ -1,4 +1,3 @@
-
 import { useScreens } from '/src/@/services/screens'
 import { Center }     from '/src/@/shared/ui-kit/Center'
 import { Container }  from '/src/@/shared/ui-kit/Container'

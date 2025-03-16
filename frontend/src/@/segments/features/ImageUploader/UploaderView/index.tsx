@@ -1,4 +1,3 @@
-
 import { FileUpload } from '@rsuite/icons'
 
 import { FileUploader } from '/src/@/shared/ui-kit/FileUploader'

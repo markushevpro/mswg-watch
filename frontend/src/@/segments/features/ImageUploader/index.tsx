@@ -2,7 +2,6 @@ import { Center } from '/src/@/shared/ui-kit/Center'
 
 import type { TImageData } from '/src/@/services/images'
 
-
 import { ImageView }        from './ImageView'
 import { UploaderView }     from './UploaderView'
 import { useImageUploader } from './hook'

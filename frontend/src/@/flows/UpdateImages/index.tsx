@@ -3,7 +3,6 @@ import { ScreensContainer } from '/src/@/segments/composition/ScreensContainer'
 import { useGeneration }    from '/src/@/services/generation'
 import { BottomButton }     from '/src/@/shared/ui-kit/BottomButton'
 
-
 export
 function UpdateImagesFlow
 ()

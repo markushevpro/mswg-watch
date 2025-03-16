@@ -7,8 +7,6 @@ import { useHookResult } from '/src/@/shared/hooks/useHookResult'
 import type { TImageData } from '/src/@/services/images'
 import type { FileType }   from 'rsuite/esm/Uploader'
 
-
-
 import { previewFile } from './helpers'
 
 interface HImageUploader
@@ -41,11 +39,14 @@ function useImageUploader
         [ onChange ]
     )
 
-    useEffect(() => {
-        if ( data ) {
-            $uploading( false )
-        }
-    }, [ data ])
+    useEffect(
+        () => {
+            if ( data ) {
+                $uploading( false )
+            }
+        }, 
+        [ data ]
+    )
 
     return useHookResult({
         uploading,

@@ -10,7 +10,7 @@ function CloseButton
 {
     const closeApp = useCallback(
         () => {
-            //@ts-expect-error undefined
+            // @ts-expect-error undefined
             runtime.WindowHide()
         },
         []

@@ -2,25 +2,24 @@ import { create } from 'zustand'
 
 import type { TImages } from './types'
 
-
-interface IImagesStoreData
+interface ImagesStoreData
 {
     images: TImages
 }
 
-interface IImagesStoreActions
+interface ImagesStoreActions
 {
-    update: ( payload: Partial<IImagesStoreData> ) => void
+    update: ( payload: Partial<ImagesStoreData> ) => void
 }
 
 export
-type IImagesStore = IImagesStoreData & IImagesStoreActions
+type ImagesStore = ImagesStoreData & ImagesStoreActions
 
 export
-const useImagesStore = create<IImagesStore>(( set ) => ({
+const useImagesStore = create<ImagesStore>(( set ) => ({
     images: {},
 
-    update: ( payload: Partial<IImagesStoreData> ) => {
+    update: ( payload: Partial<ImagesStoreData> ) => {
         set({ ...payload })
     }
 }))

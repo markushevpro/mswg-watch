@@ -4,41 +4,41 @@ import type { Screen, ScreensLayout, SystemScreensState } from '/src/@/services/
 import type { CSSProperties }                             from 'react'
 
 export
-interface IScreensStoreBase
+interface ScreensStoreBase
 {
     fixed: Screen[] | undefined
     layout: ScreensLayout | undefined
 }
 
 export
-interface IScreensStoreFront
+interface ScreensStoreFront
 {
     style: CSSProperties | undefined
 }
 
 export
-interface IScreensStoreCalculated
-extends
-IScreensStoreBase,
-IScreensStoreFront
+interface ScreensStoreCalculated
+    extends
+    ScreensStoreBase,
+    ScreensStoreFront
 {}
 
-interface IScreensStoreData
+interface ScreensStoreData
     extends
     SystemScreensState,
-    IScreensStoreCalculated
+    ScreensStoreCalculated
 {}
 
-interface IScreensStoreActions
+interface ScreensStoreActions
 {
-    update: ( payload: Partial<IScreensStoreData> ) => void
+    update: ( payload: Partial<ScreensStoreData> ) => void
 }
 
 export
-type IScreensStore = IScreensStoreData & IScreensStoreActions
+type ScreensStore = ScreensStoreData & ScreensStoreActions
 
 export
-const useScreensStore = create<IScreensStore>(( set ) => ({
+const useScreensStore = create<ScreensStore>(( set ) => ({
     loading: true,
     error:   false,
     denied:  false,
@@ -48,7 +48,7 @@ const useScreensStore = create<IScreensStore>(( set ) => ({
     style:   undefined,
     details: undefined,
 
-    update: ( payload: Partial<IScreensStoreData> ) => {
+    update: ( payload: Partial<ScreensStoreData> ) => {
         set({ ...payload })
     }
 }))

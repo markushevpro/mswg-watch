@@ -1,11 +1,10 @@
-import { useHookResult }    from '/src/@/shared/hooks/useHookResult'
-import { useScreensLoader } from '/src/@/services/screens/loader'
-
-import { getErrorText } from './helpers'
-
 import { useMemo } from 'react'
 
-import { useScreens } from '/src/@/services/screens'
+import { useScreens }       from '/src/@/services/screens'
+import { useScreensLoader } from '/src/@/services/screens/loader'
+import { useHookResult }    from '/src/@/shared/hooks/useHookResult'
+
+import { getErrorText } from './helpers'
 
 interface HLoadScreensFlow
 {
@@ -23,7 +22,10 @@ function useLoadScreensFlow
 
     const { available, denied, error, loading, request, canRequest } = useScreensLoader()
 
-    const errorText = useMemo(() => error ? getErrorText( available, denied ) : null, [ available, denied, error ])
+    const errorText = useMemo(
+        () => error ? getErrorText( available, denied ) : null, 
+        [ available, denied, error ]
+    )
 
     return useHookResult({
         loading: loading || ( !screens && !error ),

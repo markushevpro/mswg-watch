@@ -2,7 +2,6 @@ import { ImageUploader } from '/src/@/segments/features/ImageUploader'
 
 import type { Screen } from '/src/@/services/screens'
 
-
 import { useScreenView } from './hook'
 import styles            from './screen.module.css'
 

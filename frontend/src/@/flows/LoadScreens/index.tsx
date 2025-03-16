@@ -1,6 +1,5 @@
 'use client'
 
-
 import { ErrorScreen }    from '/src/@/screens/Error'
 import { LoadingOverlay } from '/src/@/shared/ui-kit/LoadingOverlay'
 

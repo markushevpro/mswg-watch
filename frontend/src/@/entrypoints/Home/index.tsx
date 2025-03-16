@@ -1,5 +1,5 @@
-import { UpdateImagesFlow } from '/src/@/flows/UpdateImages'
 import { LoadScreensFlow }  from '/src/@/flows/LoadScreens'
+import { UpdateImagesFlow } from '/src/@/flows/UpdateImages'
 import { WatcherFlow }      from '/src/@/flows/Watcher'
 import { AppLayout }        from '/src/@/segments/composition/AppLayout'
 

@@ -1,17 +1,19 @@
 'use client'
 
-import { CSSProperties, useEffect, useMemo } from 'react'
-import { useWindowSize }                     from 'usehooks-ts'
+import { useEffect, useMemo } from 'react'
+import { useWindowSize }      from 'usehooks-ts'
 
-import type { IScreensStore } from './store'
+import { useHookResult } from '/src/@/shared/hooks/useHookResult'
+
+import type { ScreensStore }  from './store'
+import type { CSSProperties } from 'react'
 
 import {  fixScreens, getSID, getZoom } from './helpers'
 import { useScreensStore }              from './store'
 
-
 interface HScreens
-extends
-Pick<IScreensStore, 'screens' | 'fixed' | 'layout' | 'update'>
+    extends
+    Pick<ScreensStore, 'screens' | 'fixed' | 'layout' | 'update'>
 {
     sid: string
     zoom: number
@@ -48,7 +50,6 @@ function useScreens
         [ layout, zoom ]
     )
 
-
     useEffect(
         () => {
             if ( screens ) {
@@ -58,7 +59,7 @@ function useScreens
         [ screens, update ]
     )
 
-    return {
+    return useHookResult({
         sid,
         layout,
         fixed,
@@ -66,5 +67,5 @@ function useScreens
         zoom,
         style,
         update
-    }
+    })
 }

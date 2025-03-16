@@ -10,10 +10,9 @@ export
 function ReloadButton
 ()
 {
-
     const reloadApp = useCallback(
         () => {
-            Restart()
+            void Restart()
         },
         []
     )

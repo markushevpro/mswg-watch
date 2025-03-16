@@ -3,12 +3,11 @@
 import { useCallback, useEffect } from 'react'
 
 import { useHookResult } from '/src/@/shared/hooks/useHookResult'
+import { GetImages }     from '/wailsjs/go/main/App'
 
 import type { TImageData, TImages } from './types'
 
 import { useImagesStore } from './store'
-
-import { GetImages } from '/wailsjs/go/main/App'
 
 interface HImages
 {

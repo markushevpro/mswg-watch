@@ -1,11 +1,9 @@
-
 import { getID, type Screen, type ScreensLayout } from '/src/@/services/screens'
+import { digest }                                 from '/src/@/shared/utils/hash'
+import { SaveWallpaper, SetWallpaper }            from '/wailsjs/go/main/App'
 
+import type { TImages }                     from '/src/@/services/images'
 import type { GenImageSize, GenScreenSize } from './types'
-
-import { TImages }                     from '/src/@/services/images'
-import { digest }                      from '/src/@/shared/utils/hash'
-import { SaveWallpaper, SetWallpaper } from '/wailsjs/go/main/App'
 
 function getImageSize
 ( img: HTMLImageElement ): GenImageSize
@@ -136,7 +134,7 @@ async function generateAndUpdate
         const image = await generateWallpaper( canvas, images, layout, screens )
 
         if ( image ) {
-            updateWallpaper( filename, image )
+            await updateWallpaper( filename, image )
         } else {
             console.log( 'No image' )
         }
