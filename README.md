@@ -7,7 +7,7 @@
 </h2>
 
 <h3 align="center">
-    Application for Creating & Automatically updating wallpaper for multiple monitors
+    Desktop application for Creating & Automatically updating wallpaper for multiple monitors
 </h3>
 
 <p align="center">
