@@ -1,14 +1,11 @@
-module mswg-watch/main
+module mswg-watch
 
 go 1.22.3
-
-replace mswg/images => ./internal/mswg/images
 
 require (
 	github.com/energye/systray v1.0.2
 	github.com/reujab/wallpaper v0.0.0-20210630195606-5f9f655b3740
 	github.com/wailsapp/wails/v2 v2.10.1
-	mswg/images v0.0.0-00010101000000-000000000000
 )
 
 require (

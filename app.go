@@ -15,7 +15,7 @@ import (
 
 	"github.com/reujab/wallpaper"
 
-	"mswg/images"
+	"mswg-watch/internal/images"
 )
 
 type App struct {

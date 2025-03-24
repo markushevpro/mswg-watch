@@ -1,13 +1,15 @@
 package images
 
 import (
-	"encoding/base64"
 	"os"
 	"log"
 	"strings"
-	"net/http"
+
 	"io"
 	"io/ioutil"
+	
+	"encoding/base64"
+	"net/http"
 )
 
 type ImageInfo struct {
