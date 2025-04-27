@@ -35,6 +35,10 @@ func main() {
 		Bind: []interface{}{
 			app,
 		},
+		SingleInstanceLock: &options.SingleInstanceLock{
+			UniqueId: "mswg-watch",
+			OnSecondInstanceLaunch: app.restart,
+		},
 	})
 
 	if err != nil {

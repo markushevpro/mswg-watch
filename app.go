@@ -11,7 +11,8 @@ import (
 
 	"github.com/energye/systray"
 	"github.com/energye/systray/icon"
-	"github.com/wailsapp/wails/v2/pkg/runtime"
+	"github.com/wailsapp/wails/v2/pkg/runtime"	
+	"github.com/wailsapp/wails/v2/pkg/options"
 
 	"github.com/reujab/wallpaper"
 
@@ -52,6 +53,10 @@ func systemTray( a *App ) func() {
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 	systray.Run(systemTray(a), func() {})
+}
+
+func (a *App) restart( data options.SecondInstanceData ) {
+	a.Restart()
 }
 
 // FRONTEND
