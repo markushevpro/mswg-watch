@@ -23,7 +23,7 @@ function useLoadScreensFlow
     const { available, denied, error, loading, request, canRequest } = useScreensLoader()
 
     const errorText = useMemo(
-        () => error ? getErrorText( available, denied ) : null, 
+        () => error ? getErrorText( available, denied ) : null,
         [ available, denied, error ]
     )
 

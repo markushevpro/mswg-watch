@@ -23,13 +23,13 @@ function useScreensLoader
 {
     const { details, denied, error, loading, update } = useScreensStore()
 
-    const available  = useMemo(
-        () => typeof window !== 'undefined' && !!window.getScreenDetails, 
+    const available = useMemo(
+        () => typeof window !== 'undefined' && !!window.getScreenDetails,
         []
     )
-    
+
     const canRequest = useMemo(
-        () => available && !denied, 
+        () => available && !denied,
         [ available, denied ]
     )
 
@@ -41,10 +41,10 @@ function useScreensLoader
             })
 
             const res = await getSystemScreens()
-            
+
             update({
                 ...res,
-                loading: false 
+                loading: false
             })
         },
         [ update ]

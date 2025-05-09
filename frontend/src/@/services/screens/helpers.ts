@@ -1,4 +1,4 @@
-import type { ScreensLayout, Screen, SystemScreensState, GetScreenDetails } from '/src/@/services/screens'
+import type { ScreensLayout, Screen, SystemScreensState } from '/src/@/services/screens'
 import type { WindowSize }                                from '/src/@/services/system'
 import type { ScreensStoreBase }                          from './store'
 
@@ -77,48 +77,46 @@ function calculateScreensLayout
 }
 
 function screensAreSame
-( screens: Screen[] )
+( screens: Screen[]): boolean
 {
     return screens.every( s => (
-        s.width === screens[0].width &&
-        s.height === screens[0].height &&
-        s.devicePixelRatio === screens[0].devicePixelRatio
+        s.width === screens[ 0 ].width &&
+        s.height === screens[ 0 ].height &&
+        s.devicePixelRatio === screens[ 0 ].devicePixelRatio
     ))
 }
 
 // Trying to fix WebView2 error with wrong sizes in getScreenDetails
 async function fixScreensByBackend
-( screens: Screen[] ): Promise<Screen[]>
+( screens: Screen[]): Promise<Screen[]>
 {
     if ( !screensAreSame( screens )) {
         return screens
     }
 
-    //@ts-expect-error undefined
+    // @ts-expect-error undefined
     const backend = await runtime.ScreenGetAll()
 
     const res = screens.map(( screen, index ) => ({
-        id: screen.id ?? screen.label,
-        availHeight: screen.availHeight,
-        availLeft: screen.availLeft,
-        availTop: screen.availTop,
-        availWidth: screen.availWidth,
-        colorDepth: screen.colorDepth,
-        devicePixelRatio: backend[index].physicalSize.width / backend[index].size.width,
-        isExtended: screen.isExtended,
-        isInternal: screen.isInternal,
-        isPrimary: screen.isPrimary,
-        label: screen.label,
-        left: screen.left,
-        onchange: screen.onchange,
-        orientation: screen.orientation,
-        pixelDepth: screen.pixelDepth,
-        top: screen.top,
-        width: backend[index].size.width,
-        height: backend[index].size.height,
+        id:               screen.id ?? screen.label,
+        availHeight:      screen.availHeight,
+        availLeft:        screen.availLeft,
+        availTop:         screen.availTop,
+        availWidth:       screen.availWidth,
+        colorDepth:       screen.colorDepth,
+        devicePixelRatio: backend[ index ].physicalSize.width / backend[ index ].size.width,
+        isExtended:       screen.isExtended,
+        isInternal:       screen.isInternal,
+        isPrimary:        screen.isPrimary,
+        label:            screen.label,
+        left:             screen.left,
+        onchange:         screen.onchange,
+        orientation:      screen.orientation,
+        pixelDepth:       screen.pixelDepth,
+        top:              screen.top,
+        width:            backend[ index ].size.width,
+        height:           backend[ index ].size.height
     }))
-
-    console.log({ backend, res })
 
     return res
 }
@@ -140,8 +138,6 @@ async function getSystemScreens
     try {
         const data = await window.getScreenDetails?.()
         const res  = data?.screens
-
-        console.log({ res })
 
         if ( res ) {
             // console.log( 'Screens ok', res )

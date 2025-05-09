@@ -44,7 +44,7 @@ function useImageUploader
             if ( data ) {
                 $uploading( false )
             }
-        }, 
+        },
         [ data ]
     )
 

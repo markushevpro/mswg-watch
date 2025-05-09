@@ -19,7 +19,7 @@ function useGenerateWallpaperFlow
     const { layout, fixed } = useScreens()
 
     const loaded = useMemo(
-        () => !!( layout && fixed ), 
+        () => !!( layout && fixed ),
         [ fixed, layout ]
     )
 

@@ -13,11 +13,11 @@ import type { GetScreenDetails, Screen, ScreensLayout } from '/src/@/services/sc
 
 export
 function useWatcherFlow
-()
-{    
-    const { images }  = useImages()
-    const { details } = useScreensStore()
-    const { ref }     = useGeneration()
+(): void
+{
+    const { images }         = useImages()
+    const { fixed, details } = useScreensStore()
+    const { ref }            = useGeneration()
 
     const [ known, $known ] = useState<string>( '' )
 
@@ -37,7 +37,7 @@ function useWatcherFlow
 
     const handler = useDebounceCallback(
         useCallback(
-            async ( e: unknown ) => {
+            async ( e: unknown, noreload?: boolean ) => {
                 const { screens } = ( e as { target: GetScreenDetails }).target
 
                 if ( screens ) {
@@ -47,13 +47,24 @@ function useWatcherFlow
                     if ( sid !== known ) {
                         await regenerate( sid, layout, fixed )
                         $known( sid )
-                        window.location.reload()
+
+                        if ( !noreload ) {
+                            window.location.reload()
+                        }
                     }
                 }
             },
             [ known, regenerate ]
         ),
         1000
+    )
+
+    useEffect(
+        () => {
+            void handler({ target: { screens: fixed } }, true )
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [ fixed ]
     )
 
     useEffect(

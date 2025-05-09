@@ -84,7 +84,14 @@ func (a *App) SetWallpaper( filename string ) {
 	cwd, err := os.Getwd()
 
 	if err == nil {
-		wallpaper.SetFromFile( cwd + "/" + images.WallpaperFile( filename ))
+		log.Print("Setting: ", cwd + "/" + images.WallpaperFile( filename ))
+
+		err = wallpaper.SetFromFile( cwd + "/" + images.WallpaperFile( filename ))
+
+		if err != nil {
+			log.Print( err )
+		}
+
 		wallpaper.SetMode( wallpaper.Span )
 	}
 }
